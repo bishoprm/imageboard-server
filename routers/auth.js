@@ -1,6 +1,6 @@
 const { Router } = require("express");
-const { toJWT, toData } = require("../auth/jwt");
 const bcrypt = require("bcrypt");
+const { toJWT, toData } = require("../auth/jwt");
 const User = require("../models").user;
 
 const router = new Router();
@@ -22,7 +22,9 @@ router.post("/login", async (req, res, next) => {
       if (passwordsMatch) {
         // yes! the user exists and we can log them in
         // create a JWT
-        res.send("right password!");
+        const token = toJWT({ userId: user.id }); // this gives back a token, and later when it's decoded you get the userId back
+
+        res.send({ token });
       } else {
         res.status(400).send("wrong password");
       }
