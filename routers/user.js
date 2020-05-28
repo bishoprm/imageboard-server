@@ -12,6 +12,7 @@ router.get("/", async (request, response) => {
   }
 });
 
+// create user
 router.post("/", async (req, res, next) => {
   try {
     const { email, password, fullName } = req.body;
